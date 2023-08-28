@@ -44,7 +44,7 @@ async def start(bot, msg: Message):
 
 # Define a handler for the command in group chats
 @app.on_message(filters.group & filters.command("autodl"))
-def autodl_group_command_handler(client, message):
+async def autodl_group_command_handler(client, message):
     # Split the command into words
     command_parts = message.text.split()
     
@@ -65,11 +65,11 @@ def autodl_group_command_handler(client, message):
                 
             # Schedule a new auto delete task
             auto_delete_tasks[group_id] = asyncio.create_task(
-                auto_delete_messages(client, group_id, time_in_seconds)
+                await auto_delete_messages(client, group_id, time_in_seconds)
             )
             
             # Save the group and time in seconds to MongoDB
-            save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
+            await save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
             
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
             await message.reply_text(response_text)
