@@ -61,11 +61,11 @@ def autodl_group_command_handler(client, message):
             
             # Cancel existing auto delete task if one exists
             if group_id in auto_delete_tasks:
-                await auto_delete_tasks[group_id].cancel()
+                auto_delete_tasks[group_id].cancel()
                 
             # Schedule a new auto delete task
-            await auto_delete_tasks[group_id] = asyncio.create_task(
-                auto_delete_messages(client, group_id, time_in_seconds)
+            auto_delete_tasks[group_id] = asyncio.create_task(
+                await auto_delete_messages(client, group_id, time_in_seconds)
             )
             
             # Save the group and time in seconds to MongoDB
