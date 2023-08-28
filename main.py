@@ -29,7 +29,7 @@ class temp(object):
 @app.on_message(filters.command('start'))
 async def start(bot, msg: Message):
     btn = InlineKeyboardMarkup([[
-       InlineKeyboardButton('Add Me To Your Group', url=f'https://t.me/{temp.U_name}?startgroup=true')
+       InlineKeyboardButton('Add Me To Your Group', url=f'https://t.me/{temp.U_NAME}?startgroup=true')
      ],[
        InlineKeyboardButton('Updates', url='https://t.me/ZiB_BoTs'),
        InlineKeyboardButton('Support', url='https://t.me/discussatZIB')
