@@ -65,7 +65,7 @@ def autodl_group_command_handler(client, message):
                 
             # Schedule a new auto delete task
             auto_delete_tasks[group_id] = asyncio.create_task(
-                await auto_delete_messages(client, group_id, time_in_seconds)
+                auto_delete_messages(client, group_id, time_in_seconds)
             )
             
             # Save the group and time in seconds to MongoDB
