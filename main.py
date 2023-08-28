@@ -26,7 +26,8 @@ async def start(bot, msg: Message):
     await msg.reply_text(
       text=Script.START_TXT.formate(msg.from_user,mention),
       reply_markup=reply_markup,
-      disable_web_page_preview=true
+      disable_web_page_preview=true,
+      parse_mode=enums.ParseMode.HTML
     )
 
 # Define a handler for the command in group chats
