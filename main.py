@@ -36,7 +36,7 @@ async def start(bot, msg: Message):
     ]])
     reply_markup=btn            
     await msg.reply_text(
-      text=Script.START_TXT.formate(msg.from_user,mention),
+      text=Script.START_TXT.format(msg.from_user.mention),
       reply_markup=reply_markup,
       disable_web_page_preview=true,
       parse_mode=enums.ParseMode.HTML
