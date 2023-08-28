@@ -1,15 +1,15 @@
 import asyncio
+from config import cfg
 from script import Script
 from db_functions import save_to_motor_db
 from pyrogram import Client, filters, enums
-from config import API_ID, API_HASH, BOT_TOKEN
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 
 Client = app(
   "AutoDeleteRoBot",
-  api_id=API_ID,
-  api_hash=API_HASH,
-  bot_token=BOT_TOKEN
+  api_id=cfg.API_ID,
+  api_hash=cfg.API_HASH,
+  bot_token=cfg.BOT_TOKEN
 )
 
 auto_delete_tasks = {}
