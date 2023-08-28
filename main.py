@@ -69,7 +69,7 @@ def autodl_group_command_handler(client, message):
             )
             
             # Save the group and time in seconds to MongoDB
-            await save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
+            save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
             
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
             await message.reply_text(response_text)
