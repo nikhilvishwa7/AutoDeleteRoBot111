@@ -5,7 +5,7 @@ from db_functions import save_to_motor_db
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 
-Client = app(
+app = Client(
   "AutoDeleteRoBot",
   api_id=cfg.API_ID,
   api_hash=cfg.API_HASH,
