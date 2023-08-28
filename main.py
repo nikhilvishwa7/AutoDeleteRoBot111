@@ -21,7 +21,7 @@ async def start(bot, msg: Message):
      ],[
        InlineKeyboardButton('Updates', url='https://t.me/ZiB_BoTs'),
        InlineKeyboardButton('Support', url='https://t.me/discussatZIB')
-    ]]
+    ]])
     reply_markup=btn            
     await msg.reply_text(
       text=Script.START_TXT.formate(msg.from_user,mention),
