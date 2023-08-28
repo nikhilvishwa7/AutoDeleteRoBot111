@@ -60,7 +60,7 @@ def autodl_group_command_handler(client, message):
             save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
             
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
-          message.reply_text(response_text)
+            message.reply_text(response_text)
         except :
             response_text = "Invalid time provided."
     else:
