@@ -61,25 +61,25 @@ def autodl_group_command_handler(client, message):
             
             # Cancel existing auto delete task if one exists
             if group_id in auto_delete_tasks:
-                auto_delete_tasks[group_id].cancel()
+                await auto_delete_tasks[group_id].cancel()
                 
             # Schedule a new auto delete task
-            auto_delete_tasks[group_id] = asyncio.create_task(
+            await auto_delete_tasks[group_id] = asyncio.create_task(
                 auto_delete_messages(client, group_id, time_in_seconds)
             )
             
             # Save the group and time in seconds to MongoDB
-            save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
+            await save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
             
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
-            message.reply_text(response_text)
+            await message.reply_text(response_text)
         except :
             response_text = "Invalid time provided."
     else:
         response_text = "No time provided."
 
     # Reply to the message with the response
-    message.reply_text(response_text)
+    await message.reply_text(response_text)
 
 
 # Auto delete messages after the given time
