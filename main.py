@@ -1,3 +1,4 @@
+import os
 import asyncio
 from config import cfg
 from script import Script
