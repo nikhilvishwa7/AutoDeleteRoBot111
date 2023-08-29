@@ -65,10 +65,9 @@ async def autodl_group_command_handler(client, message):
             )
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
             await message.reply_text(response_text)
-            
-             await db.insert_one({"group_id": group_id}
-             await db.insert_one({"time_in_seconds": time_in_seconds})
-             await db.insert_one({"time_in_minutes": time_in_minutes})
+            await db.insert_one({"group_id": group_id}
+            await db.insert_one({"time_in_seconds": time_in_seconds})
+            await db.insert_one({"time_in_minutes": time_in_minutes})
 
         except :
             response_text = "Invalid time provided."
