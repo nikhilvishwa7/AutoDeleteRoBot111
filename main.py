@@ -1,3 +1,4 @@
+# error okay clear akunnundenki  # vech mention aakane
 import os
 import asyncio
 from config import cfg
