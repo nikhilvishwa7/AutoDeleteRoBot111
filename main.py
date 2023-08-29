@@ -3,6 +3,7 @@ import os
 import asyncio
 from config import cfg
 from script import Script
+from db_functions import db
 from db_functions import save_to_motor_db
 from pyrogram import Client, filters, enums
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
@@ -17,15 +18,9 @@ app = Client(
 auto_delete_tasks = {}
 
 class temp(object):
-    BANNED_USERS = []
-    BANNED_CHATS = []
     ME = None
-    CURRENT=int(os.environ.get("SKIP", 2))
-    CANCEL = False
-    MELCOW = {}
     U_NAME = None
     B_NAME = None
-    SETTINGS = {}
 
 @app.on_message(filters.command('start'))
 async def start(bot, msg: Message):
@@ -59,7 +54,7 @@ async def autodl_group_command_handler(client, message):
             
             # Get the group ID
             group_id = message.chat.id
-            
+
             # Cancel existing auto delete task if one exists
             if group_id in auto_delete_tasks:
                 auto_delete_tasks[group_id].cancel()
@@ -68,12 +63,13 @@ async def autodl_group_command_handler(client, message):
             auto_delete_tasks[group_id] = asyncio.create_task(
                 await auto_delete_messages(client, group_id, time_in_seconds)
             )
-            
-            # Save the group and time in seconds to MongoDB
-            await save_to_motor_db(group_id, time_in_seconds, time_in_minutes)
-            
             response_text = f"Auto delete set for {time_in_minutes} minutes in this group."
             await message.reply_text(response_text)
+            
+             await db.insert_one({"group_id": group_id}
+             await db.insert_one({"time_in_seconds": time_in_seconds})
+             await db.insert_one({"time_in_minutes": time_in_minutes})
+
         except :
             response_text = "Invalid time provided."
     else:
@@ -84,11 +80,14 @@ async def autodl_group_command_handler(client, message):
 
 
 # Auto delete messages after the given time
-async def auto_delete_messages(client, group_id, time_in_seconds):
-    await asyncio.sleep(time_in_seconds)
+async def auto_delete_messages(client):
+    group_id = await db.find_one({"group_id": group_id}
+    timedl = await db.find_one({"time_in_seconds": time_in_seconds})
+    mtimedl = await db.find_one({"time_in_minutes": time_in_minutes})
+    await asyncio.sleep(timedl)
     
     # Delete messages in the group
-    async for message in client.iter_history(group_id):
+    async for message in client.iter_history(group_id, timedl, mtimedl):
         await client.delete_messages(group_id, message.message_id)
 
 
