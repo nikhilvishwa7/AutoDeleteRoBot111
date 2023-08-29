@@ -79,15 +79,14 @@ async def autodl_group_command_handler(client, message):
 
 
 # Auto delete messages after the given time
-async def auto_delete_messages(client):
+async def auto_delete_messages(bot, message):
     group_id = await db.find_one({"group_id": group_id})
     timedl = await db.find_one({"time_in_seconds": time_in_seconds})
     mtimedl = await db.find_one({"time_in_minutes": time_in_minutes})
-    await asyncio.sleep(timedl)
+    await asyncio.sleep(time_in_seconds)
     
-    # Delete messages in the group
-    async for message in client.iter_history(group_id, timedl, mtimedl):
-        await client.delete_messages(group_id, message.message_id)
+    # Delete the command message
+    await bot.delete_messages(message.chat.id, message.message_id)
 
 
 
