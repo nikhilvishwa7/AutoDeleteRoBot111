@@ -86,8 +86,8 @@ async def auto_delete_messages(bot, message):
     await asyncio.sleep(time_in_seconds)
     
     # Delete the command message
-  if not message.pinned:
-    await bot.delete_messages(message.chat.id, message.message_id)
+    if not message.pinned:
+        await bot.delete_messages(message.chat.id, message.message_id)
 
 
 
